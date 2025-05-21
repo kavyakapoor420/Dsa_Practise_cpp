@@ -58,6 +58,50 @@ char firstNonRepeatingChar(string& str){
 }
 
 
+#include <iostream>
+#include <set>
+using namespace std;
 
+int main() {
+    string username;
+    cin >> username;
+    
+    set<char> unique_chars;
+    for (char c : username) {
+        unique_chars.insert(c);
+    }
 
+    if (unique_chars.size() % 2 == 0)
+        cout << "CHAT WITH HER!" << endl;
+    else
+        cout << "IGNORE HIM!" << endl;
 
+    return 0;
+}
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    string username;
+    cin >> username;
+
+    int freq[26] = {0}; // to store frequency of characters
+
+    for (char c : username) {
+        int index = c - 'a';
+        freq[index] = 1; // mark as seen
+    }
+
+    int distinct = 0;
+    for (int i = 0; i < 26; i++) {
+        distinct += freq[i];
+    }
+
+    if (distinct % 2 == 0)
+        cout << "CHAT WITH HER!" << endl;
+    else
+        cout << "IGNORE HIM!" <<endl;
+
+    return 0;
+}
