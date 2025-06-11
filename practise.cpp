@@ -457,3 +457,20 @@ int longestSubstring(string str){
     }
     return maxLen ;
 }
+
+
+
+char firstNonRepeatingChar(string str){
+    int n=str.length() ;
+    for(int i=0;i<n;i++){
+        bool foundRepeatingChar=false ;
+        for(int j=0;j<n;j++){
+            if(i!=j && str[i]==str[j]){
+                foundRepeatingChar=true ;
+
+            }
+        }
+        if(!foundRepeatingChar) return str[i];
+    }
+    return "*"
+}
