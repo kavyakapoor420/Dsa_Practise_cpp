@@ -1,3 +1,43 @@
+// 📄 Extracted Problem Statement: Stacking Money
+// 🧾 Problem Description:
+// After a tiring fight against the Mad Titan, Wanda and Vision settled down to a normal life. Now, they have to worry about trivial things like money.
+// One day, Vision was stacking coins.
+// He made N different stacks of coins represented in the form of an integer array A, where each stack had A[i] coins.
+
+// 🧠 Vision asked Wanda the following question:
+// Find the sum of the difference of maximum and minimum number of coins over all subarrays of A.
+
+// 📌 Problem Constraints:
+// 1
+// ≤
+// 𝑁
+// ≤
+// 10
+// 5
+// 1≤N≤10 
+// 5
+ 
+
+// 1
+// ≤
+// 𝐴
+// [
+// 𝑖
+// ]
+// ≤
+// 10
+// 9
+// 1≤A[i]≤10 
+// 9
+ 
+
+// 🔢 Input Format:
+// The first argument is the integer array A.
+
+// 📤 Output Format:
+// Return a single long integer denoting the value Vision asked for.
+
+
 #include<iostream>
 #include<vector>
 #include<climits>
@@ -101,3 +141,13 @@ int main(){
 }
 
 
+// n = 3
+// A = [1, 2, 3]
+
+
+// Brute Force: 4
+// Optimal: 4
+
+
+// a=[1,1,1]
+// ans=0 
