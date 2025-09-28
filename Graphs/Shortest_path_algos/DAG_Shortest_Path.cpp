@@ -81,3 +81,127 @@ class Graph{
 int main(){
 
 }
+
+
+
+
+class Graph{
+   private :
+   unordered_map<int,vector<int>> adj ;
+   int v;
+
+   public:
+   Graph(int vertices){
+    v=vertices ; 
+   }
+    
+   void addEdge(int u,int v){
+    adj[u].push_back(v) ; 
+   }
+
+   void shortestPath(int src,int dest){
+    vector<bool> visited(v+1,false) ;
+    vector<int> parent(v+1,-1) ;
+    vector<int> dist(v+1,-1) ; 
+
+    queue<int> q;
+    visited[src]=true ;
+    dist[src]=0;
+    q.push(src) ;
+
+    while(!q.empty()){
+        int front=q.front() ;
+        q.pop() ;
+
+        for(int nbr:adj[front]){
+            if(!visited[nbr]){
+                visited[nbr]=true ;
+                parent[nbr]=front ;
+                dist[nbr]=dist[front]+1 ; 
+                q.push(nbr) ; 
+
+                if(nbr==dest) break ; 
+            }
+        }
+    }
+    if(!visited[dest]){
+        cout<<'no path exists from '<<src<<'to'<<dest ;
+        return ; 
+    }
+
+    vector<int> path ;
+    for(int v=dest;v!=-1;v=parent[v]){
+        path.push_back(v) ; 
+    }
+    reverse(path.begin(),path.end()) ;
+    return  ; 
+   }
+
+   bool dfsUtilCycleDetectDirGraph(int node,vector<bool>& visited,vector<int>& recStack){
+     visited[node]=true ;
+     recStack[node]=1 ; 
+
+     for(int nbr:adj[node]){
+        if(!visited[nbr]){
+            if(dfsUtilCycleDetectDirGraph(nbr,visited,recStack)){
+                return true ; 
+            }
+        }else if(recStack[nbr]) return true ; 
+     }
+     recStack[node]=false ;
+     return false ; 
+   }
+
+   bool hasCycleDirectedDFS(){
+    vector<bool> visited(v+1,false) ;
+    vector<int> recStack(v+1,false) ;
+
+    for(int i=1;i<=v;i++){
+        if(!visited[i]){
+            if(dfsUtilCycleDetectDirGraph(i,visited,recStack)){
+                return true ; 
+            }
+        }
+    }
+    return false; 
+   }
+
+   bool hasCycleBFS(){
+    vector<int> indegree(v+1,0) ;
+
+    for(auto& p:adj){
+        for(int nbr:p.second){
+            indegree[nbr]++ ; 
+        }
+    }
+    queue<int> q;
+
+    for(int i=1;i<=v;i++){
+        if(indegree[i]==0){
+            q.push(i) ; 
+        }
+    }
+
+    int cnt=0; // number of nodes processes 
+
+    while(!q.empty()){
+        int front=q.front() ;
+        q.pop() ;
+        cnt++ ;
+
+        for(int nbr:adj[front]){
+            indegree[nbr]-- ; 
+            if(indegree[nbr]==0){
+                q.push(nbr) ; 
+            }
+        }
+    }
+
+    return cnt!=v  ; // if processed node < total nodes then no cycle 
+   }
+
+}; 
+
+
+
+
