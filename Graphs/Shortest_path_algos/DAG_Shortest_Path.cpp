@@ -200,7 +200,75 @@ class Graph{
     return cnt!=v  ; // if processed node < total nodes then no cycle 
    }
 
+   // toposort using bfs and dfs
+
+   void addEdge(int u,int v){
+    adj[u].push_back(v) ; 
+   }
+
+   void dfsUtil(int node,vector<bool>& visited,stack<int>& st){
+    visited[node]=true ;
+
+    for(int nbr:adj[node]){
+        if(!visited[nbr]){
+            dfsUtil(nbr,visited,st) ; 
+        }
+    }
+    st.push(node) ; // push after all neigbrs are procssed after visiting all neigbirs befire bactracking pusin nodes into stck 
+   }
+
+   void topoSortDfs(){
+    vector<bool> visited(v+1,false) ;
+    stack<int> st; 
+
+    for(int i=1;i<=v;i++){
+        if(!visited[i]){
+            dfsUtil(i,visited,st) ; 
+        }
+    }
+
+    while(!st.empty()){
+        cout<<st.top()<<" " ;
+        st.pop() ; 
+    }
+   }
+
+   // bfs toposort kahn algo 
+   void topoSortBfs(){
+    
+   }
+
+   void dijsktras(int src){
+    vector<int> dist(v+1,INT_MAX) ;
+    dist[src]=0;
+
+    // min heao priority queue(distance node)
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>  pq;
+    pq.push({0,src}) ;
+
+    while(!pq.empty()){
+        int d=pq.top().first ;
+        int node=pq.top().second ;
+        pq.pop() ;
+
+        // skip if this distance is not current best 
+        if(d>dist[node]) continue ; 
+
+        for(auto& edge:adj[node]){
+            int nbr=edge.first ;
+            int wt=edge.second ;
+
+            if(dist[node]+wt<dist[nbr]){
+                dist[nbr]=dist[node]+wt ;
+                pq.push({dist[nbr],nbr}) ; 
+            }
+        }
+    }
+   }
 }; 
+
+
+
 
 
 
