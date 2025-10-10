@@ -128,3 +128,34 @@ class Graph{
 int main(){
 
 }
+
+
+
+
+export async function POST(req:Request){
+  
+  try{
+const {messages}:{messages:UIMessage[]}=await req.json() ;
+
+  const result=streamText({
+    model:openai('gpt-4.1-mini'),
+    messages:convertToModelMessages(messages), 
+  })
+
+  return result.toUIMessageStreamResponse() ;
+  }catch(err){
+    console.error('error streaming chat completion',err)
+    return new Response('failed to stream chat completion',{status:500})
+  }
+  
+}
+
+'use client'
+
+export default function RAGChattbot(){
+  return (
+    <>
+    
+    </>
+  )
+}
