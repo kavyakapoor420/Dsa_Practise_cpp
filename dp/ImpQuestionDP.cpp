@@ -145,3 +145,45 @@ public:
         return profit;
     }
 };
+
+
+// pascal trinagle  Combinaorticc formula use krle bkl C(n,k)=C(n-1,k-1)+C(n-1,k) where C(n) where C(n) represent binomial coefficient 
+class Solution {
+public:
+
+// each element is sum of twos elements direclty above it , soi can use recursion to genrate the trinagle baby ? 
+
+// base case: If numRows is 1, return [[1]].
+// Recursively generate the triangle for numRows - 1.
+// Calculate the current row by summing adjacent elements from the previous row.
+// combinartorical formula 
+// C(n,k)=C(n-1,k-1)+C(n-1,k) where C(n) represent binomial coefficient 
+    vector<vector<int>> generate(int numRows) {
+
+// by using combinatorical formula 
+    vector<vector<int>> ans;
+    for(int i=0;i<numRows;i++){
+        vector<int> row(i+1,1);
+        for(int j=1;j<i;j++){
+            row[j]=ans[i-1][j-1]+ans[i-1][j];
+        }
+        ans.push_back(row);
+    }
+    return ans;
+
+
+        // by using recursion 
+        
+    //     if(numRows==0) return {} ;
+    //     if(numRows==1) return {{1}};
+
+    //     vector<vector<int>> prevRows=generate(numRows-1);
+    //     vector<int> newRow(numRows,1) ;
+
+    //    for (int i = 1; i < numRows - 1; i++) {
+    //         newRow[i] = prevRows.back()[i - 1] + prevRows.back()[i];
+    //     }
+    //     prevRows.push_back(newRow);
+    //     return prevRows;
+    }
+};
